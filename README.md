@@ -71,7 +71,7 @@ cd ZynkStream
 #### b. Telegram Chat ID
 1. Use **@userinfobot** or **@RawDataBot** to retrieve your user ID.  
 2. Start your newly created bot in a private chat.  
-3. Your ID might look like `556793657`. In `docker-compose.yml`, set `TELEGRAM_CHAT_ID` to that ID. If using a group chat, it typically starts with `-100`.  
+3. Your ID might look like `123456789`. In `docker-compose.yml`, set `TELEGRAM_CHAT_ID` to that ID. If using a group chat, it typically starts with `-100`.  
 
 #### c. Plex Token
 1. Open Plex in your browser (e.g., `http://localhost:32400/web`).  
@@ -163,7 +163,7 @@ docker-compose logs -f automation
 
 ### qBittorrent Web UI
 - Go to `http://localhost:8080` in your browser.  
-- Default credentials: `admin/adminadmin` (refer to linuxserver/qbittorrent docs).  
+- Default credentials: `admin/adminadmin` (refer to linuxserver/qbittorrent docs).  or run docker logs qbittorrent | grep -i password and get the temporary password.  
 
 ### Plex
 - Access at `http://localhost:32401/web`.  
