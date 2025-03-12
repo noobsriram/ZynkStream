@@ -1,0 +1,10 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Docker
+*/*/Dockerfile~
+*.log
+
+# If you ever create a .env with secrets
+.env

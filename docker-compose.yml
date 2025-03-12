@@ -1,0 +1,54 @@
+version: "3.8"
+services:
+  qbittorrent:
+    image: linuxserver/qbittorrent
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - /mnt/d/DownloadedMovies/config/qbittorrent:/config
+      - /mnt/d/DownloadedMovies/torrent-files:/watch
+      - /mnt/d/DownloadedMovies/torrent-downloaded-files:/downloads
+    ports:
+      - "8080:8080"         # Web UI
+      - "8999:8999/tcp"     # Torrent traffic (TCP)
+      - "8999:8999/udp"     # Torrent traffic (UDP)
+    restart: unless-stopped
+
+  plex:
+    image: linuxserver/plex
+    container_name: plex
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - /mnt/d/DownloadedMovies/plex-config:/config
+      - /mnt/d/DownloadedMovies/downloads:/movies
+    ports:
+      - "32401:32400"
+    restart: unless-stopped
+
+  automation:
+    build: ./automation
+    container_name: automation
+    environment:
+      - DOWNLOADS_DIR=/downloads
+      - PLEX_MEDIA_DIR=/plex/movies
+      - PLEX_URL=http://localhost:32400
+      - PLEX_SECTION_ID=1
+      - PLEX_TOKEN="YOUR_PLEX_TOKE"   # Quoted to handle the ampersand;fetch it from your network tab while accessibe plex
+      - TELEGRAM_BOT_TOKEN="YOU_TELEGRAM_BOT_TOKEN_HERE"
+      - TELEGRAM_CHAT_ID="YOUR_TELEGRAM_CHAT_ID"
+    volumes:
+      - /mnt/d/DownloadedMovies/torrent-downloaded-files:/downloads
+      - /mnt/d/DownloadedMovies/downloads:/plex/movies
+    depends_on:
+      - qbittorrent
+      - plex
+    ports:
+      - "5001:5000"
+    restart: unless-stopped
+
