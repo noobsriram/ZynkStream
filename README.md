@@ -79,7 +79,7 @@ cd ZynkStream
 3. Look for `X-Plex-Token=...` in the request headers or query params.  
 4. Copy that token and place it in `docker-compose.yml` under `PLEX_TOKEN`. Example:
    ```yaml
-   PLEX_TOKEN='BJgw5LocZrUz_5284Cf3&X'
+   PLEX_TOKEN='BJgw6LoCZrUz_58fS4Cf3&X'
    ```
 
 ### 3. Configure Docker Compose
